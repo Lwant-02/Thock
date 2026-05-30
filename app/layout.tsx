@@ -34,11 +34,13 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
+    images: [{ url: "/logo.png" }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
+    images: [{ url: "/logo.png" }],
   },
   robots: {
     index: true,
@@ -46,6 +48,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
   },
 };
 
@@ -64,6 +68,7 @@ export default function RootLayout({
         jetbrainsMono.variable,
         caveat.variable,
       )}
+      suppressHydrationWarning
     >
       <Analytics />
       <body className="flex min-h-full flex-col">{children}</body>
