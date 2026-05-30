@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⌨️ Thock
 
-## Getting Started
+A minimalist mechanical typing playground focused on satisfying keyboard sounds, responsive keypress animations, and a premium clean typing experience.
 
-First, run the development server:
+Designed to make writing feel like home.
+
+---
+
+## ✨ Features
+
+* **🔊 Rich Mechanical Acoustics**: Premium, realistic mechanical keyboard sounds powered by the **Web Audio API** and a customizable sound pack engine.
+* **🎹 3D Keyboard Visualization**: Responsive on-screen physical key visualizer reacting dynamically to your real keystrokes with smooth layout adjustments.
+* **📈 Staggered Spring Stats & Count-Up**: fluid entrance spring animations and atomic number increments for WPM and Accuracy metrics powered by `motion` and `react-countup`.
+* **☁️ Live Global Counter**: A real-time, global aggregate counter of total thocks typed by all users worldwide, powered by **Upstash Redis** (via HTTP serverless REST).
+* **⚡ Ultra-Optimized Sync Engine**: Employs `@uidotdev/usehooks`'s `useDebounce` to batch local keypresses and flush incremental deltas only when paused. Idle background reads are **exactly zero**, making it 100% serverless-safe and completely free.
+* **🖼️ HD Stats Card Exporter**: Export your typing metrics as a high-definition, retina-ready sharing image using `html-to-image`.
+* **🛡️ Desktop-Only Blocker**: Immersive mobile/tablet blocker screen utilizing responsive CSS logic and a floating 3D keycap icon to keep the playground focused on desk-bound physical keyboards.
+* **🎨 Premium Minimalist Aesthetic**: Stylized handwriting prompts, off-angle tilted badges, custom hand-drawn arrows, and beautiful clean typography.
+
+---
+
+## 🛠️ Tech Stack
+
+* **Framework**: Next.js 16 (App Router, Turbopack)
+* **Core**: React 19 & TypeScript
+* **Styling**: Tailwind CSS v4
+* **Animations**: Motion (Framer Motion)
+* **Audio**: Web Audio API
+* **Database**: Upstash Redis (serverless key-value)
+* **Libraries**:
+  * `react-countup` (smooth metrics count)
+  * `html-to-image` (retina card exports)
+  * `@uidotdev/usehooks` (smart input debouncing)
+  * `@tabler/icons-react` (minimal stroke icons)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone & Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file in the root of your project:
+
+```env
+# Upstash Redis serverless credentials
+UPSTASH_REDIS_REST_URL=https://...
+UPSTASH_REDIS_REST_TOKEN=...
+
+# Custom branding URL for stats card
+NEXT_PUBLIC_APP_URL=thock.app
+```
+
+### 3. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to experience Thock locally.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Production Deployment
 
-## Learn More
+To build a highly optimized production bundle:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project compiles and type-checks successfully under Next.js Turbopack and is fully compatible with serverless Edge environments like **Vercel** or **Netlify**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+*Built with ❤️ by Lwant.*
