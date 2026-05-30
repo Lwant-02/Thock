@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Thock - A Mechanical Typing Playground",
   description:
     "A minimalist mechanical typing playground with satisfying keyboard sounds, smooth key animations, real-time WPM and accuracy stats, and random quotes to type.",
-  url: process.env.NEXT_PUBLIC_APP_URL ?? "https://thock.nawmain.dev",
+  url: process.env.SITE_URL ?? "https://thock.nawmain.dev",
   keywords: [
     "mechanical keyboard",
     "typing test",
