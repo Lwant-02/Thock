@@ -158,7 +158,7 @@ const KeyboardProvider = ({
           const baseUrl = soundUrl.substring(0, soundUrl.lastIndexOf("/") + 1);
           const filenames = new Set(
             Object.values(config.defines).filter(
-              (v): v is string => typeof v === "string",
+              (v): v is string => typeof v === "string" && v !== "",
             ),
           );
           const buffers: Record<string, AudioBuffer> = {};
