@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { AboutDialog } from "./about-dialog";
+import { LOGO_PATH } from "@/data/constant";
 
 export const TypeHint = () => {
   return (
@@ -12,9 +13,9 @@ export const TypeHint = () => {
       transition={{ type: "spring", stiffness: 200, damping: 22, delay: 0.25 }}
       className="hidden xl:flex absolute -left-48 top-1/2 -translate-y-1/2 flex-col items-end gap-1 select-none"
     >
-      <div className="flex items-center gap-2 mb-3 rotate-[-8deg] mr-2">
+      <div className="flex items-center gap-2 mb-3 rotate-[-8deg] mr-2 animate-[bounce_2s_infinite]">
         <Image
-          src="/logo.png"
+          src={LOGO_PATH}
           alt="Thock Logo"
           width={28}
           height={28}

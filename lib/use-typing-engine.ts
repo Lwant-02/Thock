@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { sentences } from "@/data/data";
+
 const DEFAULT_DURATION = 30;
-const QUOTE_API = "https://dummyjson.com/quotes/random";
-const OFFLINE_FALLBACK = "the quick brown fox jumps over the lazy dog";
 
 export interface TypingEngine {
   words: string[];
@@ -17,7 +17,6 @@ export interface TypingEngine {
   wpm: number;
   accuracy: number;
   restart: () => void;
-  author?: string;
 }
 
 export function useTypingEngine(duration = DEFAULT_DURATION): TypingEngine {
@@ -25,7 +24,6 @@ export function useTypingEngine(duration = DEFAULT_DURATION): TypingEngine {
   const [input, setInput] = useState("");
   const [started, setStarted] = useState(false);
   const [timeLeft, setTimeLeft] = useState(duration);
-  const [author, setAuthor] = useState("");
 
   const target = useMemo(() => words.join(" "), [words]);
   // Done when the timer runs out, or when the whole quote has been typed.
@@ -39,17 +37,11 @@ export function useTypingEngine(duration = DEFAULT_DURATION): TypingEngine {
     refs.current = { started, finished, target };
   });
 
-  const loadQuote = useCallback(async () => {
-    try {
-      const res = await fetch(QUOTE_API);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data: { quote: string; author: string } = await res.json();
-      setWords(data.quote.split(/\s+/).filter(Boolean));
-      setAuthor(data.author);
-    } catch {
-      setWords(OFFLINE_FALLBACK.split(" "));
-      setAuthor("Anonymous");
-    }
+  const loadQuote = useCallback(() => {
+    const randomIndex = Math.floor(Math.random() * sentences.length);
+    const quote = sentences[randomIndex];
+    const rawWords = quote.split(/\s+/).filter(Boolean);
+    setWords(rawWords);
   }, []);
 
   useEffect(() => {
@@ -60,7 +52,6 @@ export function useTypingEngine(duration = DEFAULT_DURATION): TypingEngine {
     setInput("");
     setStarted(false);
     setTimeLeft(duration);
-    setAuthor("");
     loadQuote();
   }, [duration, loadQuote]);
 
@@ -84,9 +75,14 @@ export function useTypingEngine(duration = DEFAULT_DURATION): TypingEngine {
 
       if (e.key.length === 1) {
         if (!refs.current.started) setStarted(true);
-        setInput((s) =>
-          s.length < refs.current.target.length ? s + e.key : s,
-        );
+        setInput((s) => {
+          if (s.length < refs.current.target.length) {
+            const next = s + e.key;
+            checkAndPlayThock(next, refs.current.target);
+            return next;
+          }
+          return s;
+        });
       }
     };
     window.addEventListener("keydown", onKey);
@@ -123,6 +119,41 @@ export function useTypingEngine(duration = DEFAULT_DURATION): TypingEngine {
     wpm,
     accuracy,
     restart,
-    author,
   };
+}
+
+const playThockSound = () => {
+  if (typeof window === "undefined") return;
+  try {
+    const audio = new Audio("/sounds/thock.mp3");
+    audio.volume = 0.8;
+    audio.play().catch((err) => console.warn("Audio play blocked or file missing:", err));
+  } catch (err) {
+    console.warn("Failed to play thock sound", err);
+  }
+};
+
+function checkAndPlayThock(input: string, target: string) {
+  if (!input || !target) return;
+  const currentLen = input.length;
+  const words = target.split(/\s+/).filter(Boolean);
+  let accumulatedIndex = 0;
+
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    const wordStartIdx = accumulatedIndex;
+    const wordEndIdx = wordStartIdx + word.length;
+    accumulatedIndex = wordEndIdx + 1;
+
+    if (currentLen === wordEndIdx) {
+      const cleanWord = word.toLowerCase().replace(/[^a-z]/g, "");
+      if (cleanWord === "thock") {
+        const typedWord = input.slice(wordStartIdx, wordEndIdx);
+        if (typedWord === word) {
+          playThockSound();
+        }
+      }
+      break;
+    }
+  }
 }

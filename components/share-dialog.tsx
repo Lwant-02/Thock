@@ -15,6 +15,7 @@ import {
 import { IconShare, IconDownload } from "@tabler/icons-react";
 import { SwitchSwatch } from "./switch";
 import { ButtonContent } from "./button-content";
+import { LOGO_PATH } from "@/data/constant";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL!;
 
@@ -118,7 +119,7 @@ export const ShareDialog = ({
             <div className="flex items-center justify-between w-full">
               <div className="flex items-center gap-1.5 font-sans font-black text-base">
                 <Image
-                  src="/logo.png"
+                  src={LOGO_PATH}
                   alt="Thock Logo"
                   width={22}
                   height={22}
@@ -186,7 +187,7 @@ export const ShareDialog = ({
 
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-neutral-200/40">
               <Image
-                src="/logo.png"
+                src={LOGO_PATH}
                 alt="Thock Logo"
                 width={22}
                 height={22}

@@ -1,5 +1,6 @@
 "use client";
 
+import { LOGO_PATH } from "@/data/constant";
 import { motion } from "motion/react";
 import Image from "next/image";
 
@@ -28,7 +29,7 @@ export const LaptopOnly = () => {
           className="relative mb-8 flex h-24 w-24 items-center justify-center rounded-2xl bg-white border border-neutral-200/50 shadow-xl shadow-neutral-100 -rotate-6deg"
         >
           <Image
-            src="/logo.png"
+            src={LOGO_PATH}
             alt="Thock Logo"
             width={72}
             height={72}

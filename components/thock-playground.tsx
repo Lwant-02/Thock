@@ -16,6 +16,7 @@ import { Settings, type KeyboardSettings } from "./settings";
 import { ShareDialog } from "./share-dialog";
 import { PlaygroundBg } from "./playground-bg";
 import { ButtonContent } from "./button-content";
+import { InstallButton } from "./install-button";
 
 export function ThockPlayground() {
   const {
@@ -28,7 +29,6 @@ export function ThockPlayground() {
     wpm,
     accuracy,
     restart,
-    author,
   } = useTypingEngine();
   const [pack, setPack] = useState<SoundPack>(DEFAULT_PACK);
   const [settings, setSettings] = useState<KeyboardSettings>({
@@ -117,6 +117,7 @@ export function ThockPlayground() {
   return (
     <div className="relative flex min-h-screen flex-col items-center px-6 py-10 overflow-hidden">
       <PlaygroundBg />
+      <InstallButton />
       <div className="relative z-10 flex w-full max-w-4xl flex-1 flex-col">
         <Header
           wpm={wpm}
@@ -137,22 +138,10 @@ export function ThockPlayground() {
                   input={input}
                   target={target}
                   caret={caret}
-                  author={author}
                 />
               </>
             )}
           </div>
-          {!finished && author && (
-            <motion.div
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 0.4, y: 0 }}
-              whileHover={{ opacity: 0.8 }}
-              transition={{ duration: 0.3 }}
-              className="absolute -bottom-5 right-2 text-base font-handwriting text-neutral-500 select-none pointer-events-auto transition-opacity duration-200"
-            >
-              By - {author}
-            </motion.div>
-          )}
         </div>
 
         <div className="flex-1" />

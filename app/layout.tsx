@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Caveat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/lib/site";
+import { ServiceWorkerRegister } from "@/components/service-worker-register";
+import { LOGO_PATH } from "@/data/constant";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -34,23 +36,32 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [{ url: "/logo.png" }],
+    images: [{ url: LOGO_PATH }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
-    images: [{ url: "/logo.png" }],
+    images: [{ url: LOGO_PATH }],
   },
   robots: {
     index: true,
     follow: true,
   },
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: LOGO_PATH,
+    shortcut: LOGO_PATH,
+    apple: LOGO_PATH,
   },
+  appleWebApp: {
+    capable: true,
+    title: siteConfig.name,
+    statusBarStyle: "default",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
@@ -71,7 +82,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <Analytics />
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+        <ServiceWorkerRegister />
+      </body>
     </html>
   );
 }
