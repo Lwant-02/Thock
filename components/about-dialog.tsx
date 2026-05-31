@@ -11,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { LOGO_PATH } from "@/data/constant";
 
 export const AboutDialog = () => {
   return (
@@ -43,7 +44,7 @@ export const AboutDialog = () => {
             className="relative mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#fafafa] border border-neutral-200/50 shadow-md rotate-[-5deg]"
           >
             <Image
-              src="/logo.png"
+              src={LOGO_PATH}
               alt="Thock Logo"
               width={56}
               height={56}
