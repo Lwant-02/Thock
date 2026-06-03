@@ -9,7 +9,7 @@ Designed to make writing feel like home.
 ## ✨ Features
 
 * **🔊 Rich Mechanical Acoustics**: Premium, realistic mechanical keyboard sounds powered by the **Web Audio API** and a customizable sound pack engine.
-* **🎹 3D Keyboard Visualization**: Responsive on-screen physical key visualizer reacting dynamically to your real keystrokes with smooth layout adjustments.
+* **🎹 2D Keyboard Visualization**: Responsive on-screen physical key visualizer reacting dynamically to your real keystrokes with smooth layout adjustments and **PWA** supports.
 * **📈 Staggered Spring Stats & Count-Up**: fluid entrance spring animations and atomic number increments for WPM and Accuracy metrics powered by `motion` and `react-countup`.
 * **☁️ Live Global Counter**: A real-time, global aggregate counter of total thocks typed by all users worldwide, powered by **Upstash Redis** (via HTTP serverless REST).
 * **⚡ Ultra-Optimized Sync Engine**: Employs `@uidotdev/usehooks`'s `useDebounce` to batch local keypresses and flush incremental deltas only when paused. Idle background reads are **exactly zero**, making it 100% serverless-safe and completely free.
