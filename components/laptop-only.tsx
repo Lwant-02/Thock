@@ -3,8 +3,21 @@
 import { LOGO_PATH } from "@/data/constant";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { playThockSound } from "@/lib/use-typing-engine";
 
 export const LaptopOnly = () => {
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    playThockSound();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      playThockSound();
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-[#fafafa] px-6 text-center select-none overflow-hidden relative">
       <div className="pointer-events-none absolute -top-40 left-1/2 -translate-x-1/2 w-[350px] h-[350px] bg-orange-400/5 rounded-full blur-[100px]" />
@@ -17,6 +30,12 @@ export const LaptopOnly = () => {
         className="relative z-10 flex max-w-sm flex-col items-center"
       >
         <motion.div
+          role="button"
+          tabIndex={0}
+          aria-label="Play thock sound"
+          onMouseDown={handleMouseDown}
+          onKeyDown={handleKeyDown}
+          whileTap={{ scale: 0.92 }}
           animate={{
             y: [0, -10, 0],
             rotate: [-6, -4, -6],
@@ -26,7 +45,7 @@ export const LaptopOnly = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="relative mb-8 flex h-24 w-24 items-center justify-center rounded-2xl bg-white border border-neutral-200/50 shadow-xl shadow-neutral-100 -rotate-6deg"
+          className="relative mb-8 flex h-24 w-24 items-center justify-center rounded-2xl bg-white border border-neutral-200/50 shadow-xl shadow-neutral-100 -rotate-6deg cursor-pointer focus:outline-none select-none"
         >
           <Image
             src={LOGO_PATH}
