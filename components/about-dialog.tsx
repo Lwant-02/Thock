@@ -12,8 +12,21 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { LOGO_PATH } from "@/data/constant";
+import { playThockSound } from "@/lib/use-typing-engine";
 
 export const AboutDialog = () => {
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    playThockSound();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      playThockSound();
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -32,6 +45,12 @@ export const AboutDialog = () => {
       >
         <div className="flex flex-col items-center text-center">
           <motion.div
+            role="button"
+            tabIndex={0}
+            aria-label="Play thock sound"
+            onMouseDown={handleMouseDown}
+            onKeyDown={handleKeyDown}
+            whileTap={{ scale: 0.92 }}
             animate={{
               y: [0, -6, 0],
               rotate: [-5, -3, -5],
@@ -41,7 +60,7 @@ export const AboutDialog = () => {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="relative mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#fafafa] border border-neutral-200/50 shadow-md rotate-[-5deg]"
+            className="relative mb-5 flex h-20 w-20 items-center justify-center rounded-2xl bg-[#fafafa] border border-neutral-200/50 shadow-md rotate-[-5deg] cursor-pointer focus:outline-none select-none"
           >
             <Image
               src={LOGO_PATH}

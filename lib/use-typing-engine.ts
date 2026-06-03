@@ -122,7 +122,7 @@ export function useTypingEngine(duration = DEFAULT_DURATION): TypingEngine {
   };
 }
 
-const playThockSound = () => {
+export const playThockSound = () => {
   if (typeof window === "undefined") return;
   try {
     const audio = new Audio("/sounds/thock.mp3");
